@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Test Category 1",
+    "settings": [
+      {
+        "type": "toggle",
+        "name": "Test Toggle",
+        "value": true
+      },
+      {
+        "type": "color_picker",
+        "name": "Test Color",
+        "value": [
+          201,
+          130,
+          252
+        ]
+      },
+      {
+        "type": "string_selector",
+        "name": "Test Selector",
+        "value": 0,
+        "options": [
+          "This is a test option",
+          "This is another test option",
+          "Yet another test option",
+          "String",
+          ":)"
+        ]
+      },
+      {
+        "type": "button",
+        "name": "Reset Settings",
+        "text": "click",
+        "method": "/Function(function() {\n                testSettings.reset();\n                testSettings.load();\n            })/"
+      }
+    ]
+  },
+  {
+    "name": "Category 2",
+    "settings": [
+      {
+        "type": "toggle",
+        "name": "toggle",
+        "value": false
+      },
+      {
+        "type": "toggle",
+        "name": "another one",
+        "value": true
+      },
+      {
+        "type": "color_picker",
+        "name": "color",
+        "value": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "type": "color_picker",
+        "name": "and another one",
+        "value": [
+          255,
+          255,
+          255
+        ]
+      }
+    ]
+  }
+]
