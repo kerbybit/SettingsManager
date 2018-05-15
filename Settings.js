@@ -15,7 +15,12 @@ Settings.prototype.register = function(self) {
     
     if (self.command != undefined) {
         register("command", function() {
-            self.open();
+            if (arguments[0] == "reset") {
+                self.reset();
+                ChatLib.chat("&7Settings reset for " + self.module);
+            } else {
+                self.open();
+            }
         }).setName(self.command);
     }
     
