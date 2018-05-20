@@ -24,6 +24,7 @@ var testSettings = new SettingsObject("SettingsManager", [
                 "String", 
                 ":)"
             ]),
+            new Setting.TextInput("Text Input", "test"),
             new Setting.Button("Reset Settings", "click", function() {
                 testSettings.reset();
                 testSettings.load();

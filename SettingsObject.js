@@ -218,7 +218,8 @@ SettingsObject.prototype.parse = function() {
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].text,
                         this.settings[i].settings[j].method
-                    )
+                    );
+                    break;
                 case("text_input"):
                     this.settings[i].settings[j] = new Setting.TextInput(
                         this.settings[i].settings[j].name,

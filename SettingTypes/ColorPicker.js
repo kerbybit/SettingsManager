@@ -84,7 +84,7 @@ Setting.ColorPicker.prototype.draw = function(mouseX, mouseY, x, y, alpha, self)
     Renderer.drawRect(
         Renderer.color(0, 0, 0, this.handler.hover.alpha),
         x - 5, y + 10 - this.handler.hover.height, self.width, this.handler.hover.height * 2
-    )
+    );
 
     Renderer.text(
         this.name,

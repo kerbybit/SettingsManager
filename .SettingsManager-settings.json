@@ -11,9 +11,9 @@
         "type": "color_picker",
         "name": "Test Color",
         "value": [
-          201,
+          200,
           130,
-          252
+          255
         ]
       },
       {
@@ -29,10 +29,14 @@
         ]
       },
       {
-        "type": "button",
+        "type": "text_input",
+        "name": "Text Input",
+        "text": "test"
+      },
+      {
+        "type": "text_input",
         "name": "Reset Settings",
-        "text": "click",
-        "method": "/Function(function() {\n                testSettings.reset();\n                testSettings.load();\n            })/"
+        "text": "click"
       }
     ]
   },
