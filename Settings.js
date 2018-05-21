@@ -33,6 +33,10 @@ Settings.prototype.register = function(self) {
         self.click(mouseX, mouseY);
     });
 
+    self.gui.registerKeyTyped(function(char, key) {
+        self.keyType(key);
+    });
+
     register("dragged", function(dx, dy, mouseX, mouseY, button) {
         if (!self.gui.isOpen()) return;
         if (button != 0) return;

@@ -288,6 +288,7 @@ SettingsObject.prototype.click = function(mouseX, mouseY) {
     for (var i = 0; i < this.settings.length; i++) {
         if (this.handler.tabs[i].hovered) {
             this.handler.selected = i;
+            return;
         }
 
         if (this.handler.selected != i) continue;
@@ -296,7 +297,29 @@ SettingsObject.prototype.click = function(mouseX, mouseY) {
                 case("toggle"):
                 case("string_selector"):
                 case("button"):
+                case("text_input"):
                     this.settings[i].settings[j].click(mouseX, mouseY, this);
+                    continue;
+                default:
+                    continue;
+            }
+        }
+    }
+}
+
+/**
+ * Helper function to update the GUI key typed. Registers on key typed.
+ * This is used internally on load and is not meant for public use.
+ * 
+ * @param {number} keycode 
+ */
+SettingsObject.prototype.keyType = function(keycode) {
+    for (var i = 0; i < this.settings.length; i++) {
+        if (this.handler.selected != i) continue;
+        for (var j = 0; j < this.settings[i].settings.length; j++) {
+            switch (this.settings[i].settings[j].type) {
+                case("text_input"):
+                    this.settings[i].settings[j].keyType(keycode);
                     continue;
                 default:
                     continue;
