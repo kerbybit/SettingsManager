@@ -1,6 +1,9 @@
 var Setting = new Settings();
 function Settings() {}
 
+var Toolkit = Java.type("java.awt.Toolkit");
+var DataFlavor = Java.type("java.awt.datatransfer.DataFlavor");
+
 /**
  * Registers all hooks and triggers for a new SettingsObject.
  * 
@@ -34,7 +37,7 @@ Settings.prototype.register = function(self) {
     });
 
     self.gui.registerKeyTyped(function(char, key) {
-        self.keyType(key);
+        self.keyType(char, key);
     });
 
     register("dragged", function(dx, dy, mouseX, mouseY, button) {

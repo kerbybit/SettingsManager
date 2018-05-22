@@ -313,13 +313,13 @@ SettingsObject.prototype.click = function(mouseX, mouseY) {
  * 
  * @param {number} keycode 
  */
-SettingsObject.prototype.keyType = function(keycode) {
+SettingsObject.prototype.keyType = function(char, keycode) {
     for (var i = 0; i < this.settings.length; i++) {
         if (this.handler.selected != i) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
             switch (this.settings[i].settings[j].type) {
                 case("text_input"):
-                    this.settings[i].settings[j].keyType(keycode);
+                    this.settings[i].settings[j].keyType(char, keycode, this);
                     continue;
                 default:
                     continue;
