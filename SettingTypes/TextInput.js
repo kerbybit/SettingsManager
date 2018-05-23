@@ -103,10 +103,6 @@ Setting.TextInput.prototype.update = function() {
 
 Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     if (this.handler.selected) {
-        /*
-            x + self.width - Renderer.getStringWidth(this.text, false) - 12, y - 2,
-            Renderer.getStringWidth(this.text, false) + 1, 11
-        */
         var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text, false) - 12;
         var x2 = x1 + Renderer.getStringWidth(this.text, false) + 1;
         var y1 = this.handler.pos.y - 2;
@@ -116,8 +112,8 @@ Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
             for (var i = 0; i < this.text.length; i++) {
                 var t = x1 + Renderer.getStringWidth(this.text.slice(0, i), false);
                 if (Client.getMouseX() <= t) {
-                  var left = t - Renderer.getStringWidth(this.text.slice(i-1, i), false);
-                  var right = t + Renderer.getStringWidth(this.text.slice(i-1, i), false)/2;
+                  var left = t - Renderer.getStringWidth(this.text.slice(i - 1, i), false);
+                  var right = t + Renderer.getStringWidth(this.text.slice(i - 1, i), false) / 2;
                   this.handler.cursor.pos = (Client.getMouseX() - left > right - Client.getMouseX()) ? i : i-1;
                   return;
                 }
