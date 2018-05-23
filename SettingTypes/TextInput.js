@@ -104,7 +104,7 @@ Setting.TextInput.prototype.update = function() {
 Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     if (this.handler.selected) {
         var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text, false) - 12;
-        var x2 = x1 + Renderer.getStringWidth(this.text, false) + 1;
+        var x2 = x1 + Renderer.getStringWidth(this.text, false) + 15;
         var y1 = this.handler.pos.y - 2;
         var y2 = y1 + 11;
 
@@ -121,11 +121,10 @@ Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
         }
     }
 
-    this.handler.selected = this.handler.hover.hover;
-    if (this.handler.hover.hover) {
+    if (!this.handler.selected && this.handler.hover.hover) {
         this.handler.cursor.pos = this.text.length;
-        World.playSound("gui.button.press", 1, 100);
     }
+    this.handler.selected = this.handler.hover.hover;
 }
 
 Setting.TextInput.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
