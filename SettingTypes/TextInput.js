@@ -107,9 +107,12 @@ Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
 
         if (Client.getMouseX() > x1 && Client.getMouseX() < x2 && mouseY > y1 && mouseY < y2) {
             for (var i = 0; i < this.text.length; i++) {
-                if (Client.getMouseX() <= (x1 + Renderer.getStringWidth(this.text.slice(0, i), false))) {
-                    this.handler.cursor.pos = i;
-                    return;
+                var t = x1 + Renderer.getStringWidth(this.text.slice(0, i), false);
+                if (Client.getMouseX() <= t) {
+                  var left = t - Renderer.getStringWidth(this.text.slice(i-1, i), false);
+                  var right = t + Renderer.getStringWidth(this.text.slice(i-1, i), false)/2;
+                  this.handler.cursor.pos = (Client.getMouseX() - left > right - Client.getMouseX()) ? i : i-1;
+                  return;
                 }
             }
         }
