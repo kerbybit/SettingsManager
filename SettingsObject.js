@@ -70,7 +70,13 @@ SettingsObject.prototype.getSetting = function(category, name) {
         if (category != this.settings[i].name) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
             if (name != this.settings[i].settings[j].name) continue;
-            return this.settings[i].settings[j].value;
+
+            if (this.settings[i].settings[j].type == "string_selector") {
+                var stringSelector = this.settings[i].settings[j];
+                return stringSelector.options[stringSelector.value];
+            } else {
+                return this.settings[i].settings[j].value;
+            }
         }
     }
     print("Could not fine settings " + name + " in category " + category);
