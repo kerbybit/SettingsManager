@@ -40,6 +40,13 @@ Setting.TextInput.prototype.keyType = function(char, keycode, self) {
         return;
     }
 
+    //del
+    if (keycode == 211 && this.handler.cursor.pos < this.text.length) {
+        this.text = this.text.slice(0, this.handler.cursor.pos) + this.text.slice(this.handler.cursor.pos+1);
+        self.save();
+        return;
+    }
+
     // paste
     var shouldPaste = false;
     if (keycode == 47) {
