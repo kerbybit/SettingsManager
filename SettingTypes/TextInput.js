@@ -24,12 +24,24 @@ Setting.TextInput.prototype.keyType = function(char, keycode, self) {
 
     this.handler.cursor.step = -30;
 
+    if (keycode == 199) { // home
+        this.handler.cursor.pos = 0;
+        return;
+    }
+
+    if (keycode == 207) { // end
+        this.handler.cursor.pos = this.text.length;
+        return;
+    }
+
     if (keycode == 203 && this.handler.cursor.pos > 0) { // left
         this.handler.cursor.pos--;
+        return;
     }
 
     if (keycode == 205 && this.handler.cursor.pos < this.text.length) { // right
         this.handler.cursor.pos++;
+        return;
     }
 
     // backspace
@@ -104,12 +116,18 @@ Setting.TextInput.prototype.update = function() {
 Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     if (this.handler.selected) {
         var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text, false) - 12;
-        var x2 = x1 + Renderer.getStringWidth(this.text, false) + 15;
+        var x2 = x1 + Renderer.getStringWidth(this.text, false) + 1;
         var y1 = this.handler.pos.y - 2;
         var y2 = y1 + 11;
 
-        if (Client.getMouseX() > x1 && Client.getMouseX() < x2 && mouseY > y1 && mouseY < y2) {
-            for (var i = 0; i < this.text.length; i++) {
+        if (Client.getMouseY() <= y1 || Client.getMouseY() >= y2) return;
+
+        if (Client.getMouseX() <= x1) {
+            this.handler.cursor.pos = 0;
+        } else if (Client.getMouseX() >= x2) {
+            this.handler.cursor.pos = this.text.length;
+        } else {
+            for (var i = 0; i <= this.text.length; i++) {
                 var t = x1 + Renderer.getStringWidth(this.text.slice(0, i), false);
                 if (Client.getMouseX() <= t) {
                   var left = t - Renderer.getStringWidth(this.text.slice(i - 1, i), false);
