@@ -84,6 +84,25 @@ SettingsObject.prototype.getSetting = function(category, name) {
 }
 
 /**
+ * Gets a setting object.
+ * 
+ * @param {String} category the category of the setting
+ * @param {String} name the name of the setting
+ * @returns {*} the value in the setting if found
+ */
+SettingsObject.prototype.getSettinObject = function(category, name) {
+    for (var i = 0; i < this.settings.length; i++) {
+        if (category != this.settings[i].name) continue;
+        for (var j = 0; j < this.settings[i].settings.length; j++) {
+            if (name != this.settings[i].settings[j].name) continue;
+            return this.settings[i].settings[j];
+        }
+    }
+    print("Could not fine settings " + name + " in category " + category);
+    return null;
+}
+
+/**
  * Resets the SettingsObject to default values and saves the file.
  * 
  * @returns {*} this for function chaining
