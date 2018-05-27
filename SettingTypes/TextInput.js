@@ -4,6 +4,8 @@ Settings.prototype.TextInput = function(name, text) {
     this.name = name;
     this.text = text;
 
+    this.hidden = false;
+
     this.handler = {
         pos: {},
         hover: {
@@ -19,6 +21,25 @@ Settings.prototype.TextInput = function(name, text) {
     }
 }
 
+/**
+ * Sets the setting hidden value. If hidden, it will not draw in the GUI.
+ * 
+ * @param {boolean} hidden new hidden value
+ * @return {*} this for method chaining
+ */
+Settings.prototype.setHidden = function(hidden) {
+    this.hidden = hidden;
+    return this;
+}
+
+/**
+ * Helper function to update the setting's key typed.
+ * This is used internally and is not meant for public use.
+ * 
+ * @param {string} char 
+ * @param {number} keycode 
+ * @param {*} self 
+ */
 Setting.TextInput.prototype.keyType = function(char, keycode, self) {
     if (!this.handler.selected) return;
 
@@ -96,6 +117,10 @@ Setting.TextInput.prototype.keyType = function(char, keycode, self) {
     }
 }
 
+/**
+ * Helper function to update the setting's animations.
+ * This is used internally and is not meant for public use.
+ */
 Setting.TextInput.prototype.update = function() {
     if (this.handler.selected) {
         this.handler.cursor.step++;
@@ -113,6 +138,14 @@ Setting.TextInput.prototype.update = function() {
     }
 }
 
+/**
+ * Helper function to click the setting.
+ * This is used internally and is not meant for public use.
+ * 
+ * @param {number} mouseX 
+ * @param {number} mouseY 
+ * @param {*} self 
+ */
 Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     if (this.handler.selected) {
         var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text, false) - 12;
@@ -145,6 +178,17 @@ Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     this.handler.selected = this.handler.hover.hover;
 }
 
+/**
+ * Helper function to draw the setting.
+ * This is used internally and is not meant for public use.
+ * 
+ * @param {number} mouseX 
+ * @param {number} mouseY 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {number} alpha 
+ * @param {*} self 
+ */
 Setting.TextInput.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
     this.handler.pos = {x: x, y: y};
 
@@ -195,8 +239,6 @@ Setting.TextInput.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
             x + self.width - Renderer.getStringWidth(this.text) - 10, y
         ).setColor(Renderer.color(255, 255, 255, alpha)).draw();
     }
-
-    
 
     return 25;
 }

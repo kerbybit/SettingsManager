@@ -13,6 +13,8 @@ Settings.prototype.Button = function(name, text, method) {
     this.text = text;
     this.method = method;
 
+    this.hidden = false;
+
     this.handler = {
         pos: {},
         hover: {
@@ -21,6 +23,17 @@ Settings.prototype.Button = function(name, text, method) {
             height: 0
         }
     }
+}
+
+/**
+ * Sets the setting hidden value. If hidden, it will not draw in the GUI.
+ * 
+ * @param {boolean} hidden new hidden value
+ * @return {*} this for method chaining
+ */
+Settings.prototype.setHidden = function(hidden) {
+    this.hidden = hidden;
+    return this;
 }
 
 /**

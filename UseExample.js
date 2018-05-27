@@ -37,7 +37,8 @@ var testSettings = new SettingsObject("SettingsManager", [
             new Setting.Toggle("toggle", false),
             new Setting.Toggle("another one", true),
             new Setting.ColorPicker("color", [0, 0, 0]),
-            new Setting.ColorPicker("and another one", [255, 255, 255])
+            new Setting.ColorPicker("and another one", [255, 255, 255]),
+            new Setting.Toggle("hidden toggle", true).setHidden(true)
         ]
     }
 ]);

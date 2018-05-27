@@ -10,7 +10,9 @@ Settings.prototype.ColorPicker = function(name, value) {
     this.type = "color_picker";
 
     this.name = name;
-    this.value = value
+    this.value = value;
+
+    this.hidden = false;
 
     this.handler = {
         pos: {},
@@ -20,6 +22,17 @@ Settings.prototype.ColorPicker = function(name, value) {
             height: 0
         }
     }
+}
+
+/**
+ * Sets the setting hidden value. If hidden, it will not draw in the GUI.
+ * 
+ * @param {boolean} hidden new hidden value
+ * @return {*} this for method chaining
+ */
+Settings.prototype.setHidden = function(hidden) {
+    this.hidden = hidden;
+    return this;
 }
 
 /**

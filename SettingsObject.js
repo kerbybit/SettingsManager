@@ -71,11 +71,14 @@ SettingsObject.prototype.getSetting = function(category, name) {
         for (var j = 0; j < this.settings[i].settings.length; j++) {
             if (name != this.settings[i].settings[j].name) continue;
 
-            if (this.settings[i].settings[j].type == "string_selector") {
-                var stringSelector = this.settings[i].settings[j];
-                return stringSelector.options[stringSelector.value];
-            } else {
-                return this.settings[i].settings[j].value;
+            switch (this.settings[i].settings[j].type) {
+                case("string_selector"):
+                    var stringSelector = this.settings[i].settings[j];
+                    return stringSelector.options[stringSelector.value];
+                case("text_input"):
+                    return this.settings[i].settings[j].text;
+                default:
+                    return this.settings[i].settings[j].value;
             }
         }
     }
@@ -406,6 +409,7 @@ SettingsObject.prototype.draw = function(mouseX, mouseY) {
 
         yOffset = 0;
         for (var j = 0; j < category.settings.length; j++) {
+            if (category.settings[j].hidden) continue;
             yOffset += category.settings[j].draw(mouseX, mouseY, x + 5, y + 5 + yOffset + this.handler.tabs[i].y, this.handler.tabs[i].alpha, this, this.handler.selected == i);
         }
 

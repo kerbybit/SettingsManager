@@ -12,7 +12,9 @@ Settings.prototype.StringSelector = function(name, value, options) {
 
     this.name = name;
     this.value = value;
-    this.options = options
+    this.options = options;
+
+    this.hidden = false;
 
     var textAlphas = [];
     this.options.forEach(function() {
@@ -31,6 +33,17 @@ Settings.prototype.StringSelector = function(name, value, options) {
             height: 0
         }
     }
+}
+
+/**
+ * Sets the setting hidden value. If hidden, it will not draw in the GUI.
+ * 
+ * @param {boolean} hidden new hidden value
+ * @return {*} this for method chaining
+ */
+Settings.prototype.setHidden = function(hidden) {
+    this.hidden = hidden;
+    return this;
 }
 
 /**
