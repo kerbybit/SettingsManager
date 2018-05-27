@@ -283,6 +283,7 @@ SettingsObject.prototype.update = function() {
         }
 
         for (var j = 0; j < this.settings[i].settings.length; j++) {
+            if (this.settings[i].settings[j].hidden) continue;
             this.settings[i].settings[j].update();
         }
     }
@@ -299,6 +300,7 @@ SettingsObject.prototype.drag = function(mouseX, mouseY) {
     for (var i = 0; i < this.settings.length; i++) {
         if (this.handler.selected != i) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
+            if (this.settings[i].settings[j].hidden) continue;
             if (this.settings[i].settings[j].type != "color_picker") continue;
             this.settings[i].settings[j].click(mouseX, mouseY, this);
         }
@@ -321,6 +323,7 @@ SettingsObject.prototype.click = function(mouseX, mouseY) {
 
         if (this.handler.selected != i) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
+            if (this.settings[i].settings[j].hidden) continue;
             switch (this.settings[i].settings[j].type) {
                 case("toggle"):
                 case("string_selector"):
