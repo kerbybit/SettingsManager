@@ -27,7 +27,7 @@ Settings.prototype.TextInput = function(name, text) {
  * @param {boolean} hidden new hidden value
  * @return {*} this for method chaining
  */
-Settings.prototype.setHidden = function(hidden) {
+Setting.TextInput.prototype.setHidden = function(hidden) {
     this.hidden = hidden;
     return this;
 }

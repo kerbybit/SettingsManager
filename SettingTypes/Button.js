@@ -31,7 +31,7 @@ Settings.prototype.Button = function(name, text, method) {
  * @param {boolean} hidden new hidden value
  * @return {*} this for method chaining
  */
-Settings.prototype.setHidden = function(hidden) {
+Setting.Button.prototype.setHidden = function(hidden) {
     this.hidden = hidden;
     return this;
 }

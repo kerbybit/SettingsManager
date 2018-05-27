@@ -41,7 +41,7 @@ Settings.prototype.StringSelector = function(name, value, options) {
  * @param {boolean} hidden new hidden value
  * @return {*} this for method chaining
  */
-Settings.prototype.setHidden = function(hidden) {
+Setting.StringSelector.prototype.setHidden = function(hidden) {
     this.hidden = hidden;
     return this;
 }

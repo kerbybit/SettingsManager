@@ -30,7 +30,7 @@ Settings.prototype.ColorPicker = function(name, value) {
  * @param {boolean} hidden new hidden value
  * @return {*} this for method chaining
  */
-Settings.prototype.setHidden = function(hidden) {
+Setting.ColorPicker.prototype.setHidden = function(hidden) {
     this.hidden = hidden;
     return this;
 }

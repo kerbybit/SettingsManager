@@ -226,33 +226,33 @@ SettingsObject.prototype.parse = function() {
                     this.settings[i].settings[j] = new Setting.Toggle(
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].value
-                    );
+                    ).setHidden(this.settings[i].settings[j].hidden);
                     break;
                 case("color_picker"):
                     this.settings[i].settings[j] = new Setting.ColorPicker(
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].value
-                    );
+                    ).setHidden(this.settings[i].settings[j].hidden);
                     break;
                 case("string_selector"):
                     this.settings[i].settings[j] = new Setting.StringSelector(
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].value,
                         this.settings[i].settings[j].options
-                    );
+                    ).setHidden(this.settings[i].settings[j].hidden);
                     break;
                 case("button"):
                     this.settings[i].settings[j] = new Setting.Button(
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].text,
                         this.settings[i].settings[j].method
-                    );
+                    ).setHidden(this.settings[i].settings[j].hidden);
                     break;
                 case("text_input"):
                     this.settings[i].settings[j] = new Setting.TextInput(
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].text
-                    );
+                    ).setHidden(this.settings[i].settings[j].hidden);
                     break;
             }
         }
