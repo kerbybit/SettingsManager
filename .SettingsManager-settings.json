@@ -38,6 +38,14 @@
         "hidden": false
       },
       {
+        "type": "slider",
+        "name": "Slider",
+        "value": 50,
+        "min": 0,
+        "max": 100,
+        "hidden": false
+      },
+      {
         "type": "button",
         "name": "Reset Settings",
         "text": "click",

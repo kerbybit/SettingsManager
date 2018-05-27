@@ -6,11 +6,13 @@
  * @param {String} name the name of the setting
  * @param {Array.<number>} value the default value of the setting
  */
-Settings.prototype.ColorPicker = function(name, value) {
-    this.type = "color_picker";
+Settings.prototype.Slider = function(name, value, min, max) {
+    this.type = "slider";
 
     this.name = name;
     this.value = value;
+    this.min = min;
+    this.max = max;
 
     this.hidden = false;
 
@@ -30,7 +32,7 @@ Settings.prototype.ColorPicker = function(name, value) {
  * @param {boolean} hidden new hidden value
  * @return {*} this for method chaining
  */
-Setting.ColorPicker.prototype.setHidden = function(hidden) {
+Setting.Slider.prototype.setHidden = function(hidden) {
     this.hidden = hidden;
     return this;
 }
@@ -39,7 +41,7 @@ Setting.ColorPicker.prototype.setHidden = function(hidden) {
  * Helper function to update the setting's animations.
  * This is used internally and is not meant for public use.
  */
-Setting.ColorPicker.prototype.update = function() {
+Setting.Slider.prototype.update = function() {
     if (this.handler.hover.hover) {
         this.handler.hover.alpha    = easeOut(this.handler.hover.alpha,     130,    10, 1);
         this.handler.hover.height   = easeOut(this.handler.hover.height,    13,     10, 0.1);
@@ -57,18 +59,12 @@ Setting.ColorPicker.prototype.update = function() {
  * @param {number} mouseY 
  * @param {*} self 
  */
-Setting.ColorPicker.prototype.click = function(mouseX, mouseY, self) {
-    if (!this.handler.hover.hover) return;
+Setting.Slider.prototype.click = function(mouseX, mouseY, self) {
+    if (mouseY < this.handler.pos.y + 14 || mouseY > this.handler.pos.y + 19) return;
 
-    slideWidth = self.width / 3 - 15;
+    slideWidth = self.width - 15;
     if (mouseX > this.handler.pos.x && mouseX < this.handler.pos.x + slideWidth) {
-        this.value[0] = Math.floor(MathLib.map(mouseX, this.handler.pos.x, this.handler.pos.x + slideWidth, 0, 255));
-        self.save();
-    } else if (mouseX > this.handler.pos.x + slideWidth + 5 && mouseX < this.handler.pos.x + slideWidth * 2 + 5) {
-        this.value[1] = Math.floor(MathLib.map(mouseX, this.handler.pos.x + slideWidth + 5, this.handler.pos.x + slideWidth * 2 + 5, 0, 255));
-        self.save();
-    } else if (mouseX > this.handler.pos.x + slideWidth * 2 + 10 && mouseX < this.handler.pos.x + slideWidth * 3 + 10) {
-        this.value[2] = Math.floor(MathLib.map(mouseX, this.handler.pos.x + slideWidth * 2 + 10, this.handler.pos.x + slideWidth * 3 + 10, 0, 255));
+        this.value = Math.floor(MathLib.map(mouseX, this.handler.pos.x, this.handler.pos.x + slideWidth, this.min, this.max));
         self.save();
     }
 }
@@ -84,7 +80,7 @@ Setting.ColorPicker.prototype.click = function(mouseX, mouseY, self) {
  * @param {number} alpha 
  * @param {*} self 
  */
-Setting.ColorPicker.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
+Setting.Slider.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
     this.handler.pos = {x: x, y: y}
 
     this.handler.hover.hover = 
@@ -104,43 +100,16 @@ Setting.ColorPicker.prototype.draw = function(mouseX, mouseY, x, y, alpha, self)
         x, y
     ).setColor(Renderer.color(255, 255, 255, alpha)).draw();
 
-    slideWidth = self.width / 3 - 15;
+    slideWidth = self.width - 15;
     Renderer.drawRect(
-        Renderer.color(this.value[0], 0, 0, alpha),
+        Renderer.color(255, 255, 255, alpha),
         x, y + 15, slideWidth, 3
     );
 
     Renderer.drawRect(
         Renderer.color(255, 255, 255, alpha),
-        x + MathLib.map(this.value[0], 0, 255, 0, slideWidth), y + 14,
+        x + MathLib.map(this.value, this.min, this.max, 0, slideWidth), y + 14,
         1, 5
-    );
-
-    Renderer.drawRect(
-        Renderer.color(0, this.value[1], 0, alpha),
-        x + slideWidth + 5, y + 15, slideWidth, 3
-    );
-
-    Renderer.drawRect(
-        Renderer.color(255, 255, 255, alpha),
-        x + slideWidth + 5 + MathLib.map(this.value[1], 0, 255, 0, slideWidth), y + 14,
-        1, 5
-    );
-
-    Renderer.drawRect(
-        Renderer.color(0, 0, this.value[2], alpha),
-        x + slideWidth * 2 + 10, y + 15, slideWidth, 3
-    );
-
-    Renderer.drawRect(
-        Renderer.color(255, 255, 255, alpha),
-        x + slideWidth * 2 + 10 + MathLib.map(this.value[2], 0, 255, 0, slideWidth), y + 14,
-        1, 5
-    );
-
-    Renderer.drawRect(
-        Renderer.color(this.value[0], this.value[1], this.value[2], alpha),
-        x + self.width - 30, y, 20, 20
     );
 
     return 25;

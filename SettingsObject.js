@@ -254,6 +254,14 @@ SettingsObject.prototype.parse = function() {
                         this.settings[i].settings[j].text
                     ).setHidden(this.settings[i].settings[j].hidden);
                     break;
+                case("slider"):
+                    this.settings[i].settings[j] = new Setting.Slider(
+                        this.settings[i].settings[j].name,
+                        this.settings[i].settings[j].value,
+                        this.settings[i].settings[j].min,
+                        this.settings[i].settings[j].max
+                    ).setHidden(this.settings[i].settings[j].hidden);
+                    break;
             }
         }
     }

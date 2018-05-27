@@ -25,6 +25,7 @@ var testSettings = new SettingsObject("SettingsManager", [
                 ":)"
             ]),
             new Setting.TextInput("Text Input", "&ct&5e&es&at"),
+            new Setting.Slider("Slider", 50, 0, 100),
             new Setting.Button("Reset Settings", "click", function() {
                 testSettings.reset();
                 testSettings.load();
