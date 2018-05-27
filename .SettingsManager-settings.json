@@ -43,6 +43,7 @@
         "value": 50,
         "min": 0,
         "max": 100,
+        "round": 3,
         "hidden": false
       },
       {
@@ -94,6 +95,15 @@
         "name": "hidden toggle",
         "value": true,
         "hidden": true
+      },
+      {
+        "type": "slider",
+        "name": "slider",
+        "value": 1000,
+        "min": 500,
+        "max": 5000,
+        "round": 0,
+        "hidden": false
       }
     ]
   }

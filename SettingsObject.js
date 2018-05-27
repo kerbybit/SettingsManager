@@ -259,7 +259,8 @@ SettingsObject.prototype.parse = function() {
                         this.settings[i].settings[j].name,
                         this.settings[i].settings[j].value,
                         this.settings[i].settings[j].min,
-                        this.settings[i].settings[j].max
+                        this.settings[i].settings[j].max,
+                        this.settings[i].settings[j].round
                     ).setHidden(this.settings[i].settings[j].hidden);
                     break;
             }
@@ -309,8 +310,14 @@ SettingsObject.prototype.drag = function(mouseX, mouseY) {
         if (this.handler.selected != i) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
             if (this.settings[i].settings[j].hidden) continue;
-            if (this.settings[i].settings[j].type != "color_picker") continue;
-            this.settings[i].settings[j].click(mouseX, mouseY, this);
+            switch (this.settings[i].settings[j].type) {
+                case("color_picker"):
+                case("slider"):
+                    this.settings[i].settings[j].click(mouseX, mouseY, this);
+                    continue;
+                default:
+                    continue;
+            }
         }
     }
 }

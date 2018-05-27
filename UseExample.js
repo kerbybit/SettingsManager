@@ -25,7 +25,7 @@ var testSettings = new SettingsObject("SettingsManager", [
                 ":)"
             ]),
             new Setting.TextInput("Text Input", "&ct&5e&es&at"),
-            new Setting.Slider("Slider", 50, 0, 100),
+            new Setting.Slider("Slider", 50, 0, 100, 3),
             new Setting.Button("Reset Settings", "click", function() {
                 testSettings.reset();
                 testSettings.load();
@@ -39,7 +39,8 @@ var testSettings = new SettingsObject("SettingsManager", [
             new Setting.Toggle("another one", true),
             new Setting.ColorPicker("color", [0, 0, 0]),
             new Setting.ColorPicker("and another one", [255, 255, 255]),
-            new Setting.Toggle("hidden toggle", true).setHidden(true)
+            new Setting.Toggle("hidden toggle", true).setHidden(true),
+            new Setting.Slider("slider", 1000, 500, 5000)
         ]
     }
 ]);

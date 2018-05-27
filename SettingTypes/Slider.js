@@ -1,18 +1,26 @@
 /**
- * Represents a color picker setting.
+ * Represents a slider setting.
  * Example usage can be found in UseExample.js
  * 
  * @constructor
  * @param {String} name the name of the setting
- * @param {Array.<number>} value the default value of the setting
+ * @param {number} value the default value of the setting
+ * @param {number} min the min number
+ * @param {number} max the max number
+ * @param {number} round optional number of decimals to round to (default 0)
  */
-Settings.prototype.Slider = function(name, value, min, max) {
+Settings.prototype.Slider = function(name, value, min, max, round) {
     this.type = "slider";
 
     this.name = name;
     this.value = value;
     this.min = min;
     this.max = max;
+
+    this.round = 0;
+    if (round != undefined) {
+        this.round = round;
+    }
 
     this.hidden = false;
 
@@ -60,13 +68,17 @@ Setting.Slider.prototype.update = function() {
  * @param {*} self 
  */
 Setting.Slider.prototype.click = function(mouseX, mouseY, self) {
-    if (mouseY < this.handler.pos.y + 14 || mouseY > this.handler.pos.y + 19) return;
+    if (!this.handler.hover.hover) return;
 
-    slideWidth = self.width - 15;
+    slideWidth = self.width - 10;
     if (mouseX > this.handler.pos.x && mouseX < this.handler.pos.x + slideWidth) {
-        this.value = Math.floor(MathLib.map(mouseX, this.handler.pos.x, this.handler.pos.x + slideWidth, this.min, this.max));
-        self.save();
+        this.value = MathLib.map(mouseX, this.handler.pos.x, this.handler.pos.x + slideWidth, this.min, this.max).toFixed(this.round);
+    } else if (mouseX <= this.handler.pos.x) {
+        this.value = this.min;
+    } else if (mouseX >= this.handler.pos.x + slideWidth) {
+        this.value = this.max;
     }
+    self.save();
 }
 
 /**
@@ -100,9 +112,9 @@ Setting.Slider.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
         x, y
     ).setColor(Renderer.color(255, 255, 255, alpha)).draw();
 
-    slideWidth = self.width - 15;
+    slideWidth = self.width - 10;
     Renderer.drawRect(
-        Renderer.color(255, 255, 255, alpha),
+        Renderer.color(100, 100, 100, alpha),
         x, y + 15, slideWidth, 3
     );
 
@@ -111,6 +123,11 @@ Setting.Slider.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
         x + MathLib.map(this.value, this.min, this.max, 0, slideWidth), y + 14,
         1, 5
     );
+
+    Renderer.text(
+        this.value,
+        x + self.width - Renderer.getStringWidth(this.value) - 10, y
+    ).setColor(Renderer.color(255, 255, 255, alpha)).draw();
 
     return 25;
 }
