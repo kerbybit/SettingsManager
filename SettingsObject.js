@@ -90,7 +90,7 @@ SettingsObject.prototype.getSetting = function(category, name) {
  * @param {String} name the name of the setting
  * @returns {*} the value in the setting if found
  */
-SettingsObject.prototype.getSettinObject = function(category, name) {
+SettingsObject.prototype.getSettingObject = function(category, name) {
     for (var i = 0; i < this.settings.length; i++) {
         if (category != this.settings[i].name) continue;
         for (var j = 0; j < this.settings[i].settings.length; j++) {
