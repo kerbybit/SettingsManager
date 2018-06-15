@@ -111,9 +111,37 @@ SettingsObject.prototype.getSettingObject = function(category, name) {
  * @returns {*} this for function chaining
  */
 SettingsObject.prototype.reset = function() {
-    this.settings = this.defaults;
+    this.settings = [];
+    for (var i = 0; i < this.defaults.length; i++) {
+        var category = this.defaults[i];
+        var _settings = [];
+        for (var j = 0; j < category.settings.length; j++) {
+            _settings[j] = copyObject(category.settings[j], true);
+        }
+        this.settings[i] = {
+            name: category.name,
+            settings: _settings
+        }
+    }
     this.save();
     return this;
+}
+
+function copyObject(orig, deep) {
+    var copy = Object.create(Object.getPrototypeOf(orig));
+    copyOwnPropertiesFrom(copy, orig, deep);
+    return copy;
+}
+
+function copyOwnPropertiesFrom(target, source, deep) {
+    Object.getOwnPropertyNames(source).forEach(function(propKey) {
+        var desc = Object.getOwnPropertyDescriptor(source, propKey);
+        Object.defineProperty(target, propKey, desc);
+        if (deep && typeof desc.value === 'object') {
+            target[propKey] = copyObject(source[propKey], deep);
+        }
+    });
+    return target;
 }
 
 /**
