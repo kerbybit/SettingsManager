@@ -128,7 +128,7 @@ SettingsObject.prototype.reset = function() {
                 case("color_picker"):
                     _setting = new Setting.ColorPicker(
                         setting.name,
-                        setting.value
+                        setting.value.slice(0)
                     ).setHidden(setting.hidden);
                     break;
                 case("string_selector"):
