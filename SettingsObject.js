@@ -116,7 +116,53 @@ SettingsObject.prototype.reset = function() {
         var category = this.defaults[i];
         var _settings = [];
         for (var j = 0; j < category.settings.length; j++) {
-            _settings[j] = copyObject(category.settings[j], true);
+            var setting = category.settings[j];
+            var _setting;
+            switch (setting.type) {
+                case("toggle"):
+                    _setting = new Setting.Toggle(
+                        setting.name,
+                        setting.value
+                    ).setHidden(setting.hidden);
+                    break;
+                case("color_picker"):
+                    _setting = new Setting.ColorPicker(
+                        setting.name,
+                        setting.value
+                    ).setHidden(setting.hidden);
+                    break;
+                case("string_selector"):
+                    _setting = new Setting.StringSelector(
+                        setting.name,
+                        setting.value,
+                        setting.options
+                    ).setHidden(setting.hidden);
+                    break;
+                case("button"):
+                    _setting = new Setting.Button(
+                        setting.name,
+                        setting.text,
+                        setting.method
+                    ).setHidden(setting.hidden);
+                    break;
+                case("text_input"):
+                    _setting = new Setting.TextInput(
+                        setting.name,
+                        setting.text
+                    ).setHidden(setting.hidden);
+                    break;
+                case("slider"):
+                    _setting = new Setting.Slider(
+                        setting.name,
+                        setting.value,
+                        setting.min,
+                        setting.max,
+                        setting.round
+                    ).setHidden(setting.hidden);
+                    break;
+            }
+
+            _settings[j] = _setting;
         }
         this.settings[i] = {
             name: category.name,
@@ -125,23 +171,6 @@ SettingsObject.prototype.reset = function() {
     }
     this.save();
     return this;
-}
-
-function copyObject(orig, deep) {
-    var copy = Object.create(Object.getPrototypeOf(orig));
-    copyOwnPropertiesFrom(copy, orig, deep);
-    return copy;
-}
-
-function copyOwnPropertiesFrom(target, source, deep) {
-    Object.getOwnPropertyNames(source).forEach(function(propKey) {
-        var desc = Object.getOwnPropertyDescriptor(source, propKey);
-        Object.defineProperty(target, propKey, desc);
-        if (deep && typeof desc.value === 'object') {
-            target[propKey] = copyObject(source[propKey], deep);
-        }
-    });
-    return target;
 }
 
 /**
