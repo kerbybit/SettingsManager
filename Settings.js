@@ -11,10 +11,6 @@ var DataFlavor = Java.type("java.awt.datatransfer.DataFlavor");
  */
 Settings.prototype.register = function(self) {
     self.load();
-        
-    register("gameUnload", function() {
-        self.save();
-    });
     
     if (self.command != undefined) {
         register("command", function() {
