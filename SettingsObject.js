@@ -470,7 +470,7 @@ SettingsObject.prototype.draw = function(mouseX, mouseY) {
             x + xOffset, y, width, this.handler.tabs[i].height
         );
 
-        Renderer.text(
+        new Text(
             category.name,
             x + 5 + xOffset, y + 5 - 18
         ).setColor(
