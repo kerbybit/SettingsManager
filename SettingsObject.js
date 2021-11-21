@@ -1,3 +1,5 @@
+const Setting = require("./Settings.js")
+
 
 /**
  * Represents a Settings Object.
@@ -491,3 +493,9 @@ SettingsObject.prototype.draw = function(mouseX, mouseY) {
         xOffset += width;
     }
 }
+
+SettingsObject.prototype.register = function() {
+    Settings.register(this)
+}
+
+module.exports = SettingsObject

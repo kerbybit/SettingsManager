@@ -1,6 +1,4 @@
-
-
-var Setting = new Settings();
+const Setting = new Settings();
 
 var Toolkit = Java.type("java.awt.Toolkit");
 var DataFlavor = Java.type("java.awt.datatransfer.DataFlavor");
@@ -725,7 +723,7 @@ Setting.TextInput.prototype.keyType = function(char, keycode, self) {
     }
 
     // text
-    if (char.toString().match(/[\x20-\x7E]/g)) {
+    if (String(char).match(/[\x20-\x7E]/g)) {
         this.text = 
             this.text.slice(0, this.handler.cursor.pos) 
             + char 
@@ -767,8 +765,8 @@ Setting.TextInput.prototype.update = function() {
  */
 Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
     if (this.handler.selected) {
-        var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text, false) - 12;
-        var x2 = x1 + Renderer.getStringWidth(this.text, false) + 1;
+        var x1 = this.handler.pos.x + self.width - Renderer.getStringWidth(this.text) - 12;
+        var x2 = x1 + Renderer.getStringWidth(this.text) + 1;
         var y1 = this.handler.pos.y - 2;
         var y2 = y1 + 11;
 
@@ -779,10 +777,10 @@ Setting.TextInput.prototype.click = function(mouseX, mouseY, self) {
                 this.handler.cursor.pos = this.text.length;
             } else {
                 for (var i = 0; i <= this.text.length; i++) {
-                    var t = x1 + Renderer.getStringWidth(this.text.slice(0, i), false);
+                    var t = x1 + Renderer.getStringWidth(this.text.slice(0, i));
                     if (Client.getMouseX() <= t) {
-                    var left = t - Renderer.getStringWidth(this.text.slice(i - 1, i), false);
-                    var right = t + Renderer.getStringWidth(this.text.slice(i - 1, i), false) / 2;
+                    var left = t - Renderer.getStringWidth(this.text.slice(i - 1, i));
+                    var right = t + Renderer.getStringWidth(this.text.slice(i - 1, i)) / 2;
                     this.handler.cursor.pos = (Client.getMouseX() - left > right - Client.getMouseX()) ? i : i-1;
                     return;
                     }
@@ -831,20 +829,20 @@ Setting.TextInput.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
     if (this.handler.selected) {
         Renderer.drawRect(
             Renderer.color(0, 0, 0, alpha),
-            x + self.width - Renderer.getStringWidth(this.text, false) - 12, y - 2,
-            Renderer.getStringWidth(this.text, false) + 1, 11
+            x + self.width - Renderer.getStringWidth(this.text) - 12, y - 2,
+            Renderer.getStringWidth(this.text) + 1, 11
         );
 
         new Text(
             this.text,
-            x + self.width - Renderer.getStringWidth(this.text, false) - 10, y
+            x + self.width - Renderer.getStringWidth(this.text) - 10, y
         ).setFormatted(false).setColor(Renderer.color(255, 255, 255, alpha)).draw();
 
         if (this.handler.cursor.step < 30) {
             var cursorPos = 
                 x + self.width - 10
-                - Renderer.getStringWidth(this.text, false) 
-                + Renderer.getStringWidth(this.text.slice(0, this.handler.cursor.pos), false);
+                - Renderer.getStringWidth(this.text) 
+                + Renderer.getStringWidth(this.text.slice(0, this.handler.cursor.pos));
 
             Renderer.drawRect(
                 Renderer.color(255, 255, 255, alpha),
@@ -1014,3 +1012,5 @@ Setting.Toggle.prototype.draw = function(mouseX, mouseY, x, y, alpha, self) {
 
     return 15;
 }
+
+module.exports = Setting
